@@ -1,16 +1,15 @@
-package com.rhitmo.rhitmohospedeapi.core.usecase;
+package com.rhitmo.rhitmohospedeapi.core.service;
 
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IUserInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IUserOutputRepositoryPort;
 import com.rhitmo.rhitmohospedeapi.model.CreateUserPostHttpRequest;
 import com.rhitmo.rhitmohospedeapi.model.CreateUserPostHttpResponse;
-import com.rhitmo.rhitmohospedeapi.model.Error;
 
-public class UserUseCase implements IUserInputPort {
+public class UserServiceImpl implements IUserInputPort {
 
     private final IUserOutputRepositoryPort userOutputRepositoryPort;
 
-    public UserUseCase(IUserOutputRepositoryPort userOutputRepositoryPort) {
+    public UserServiceImpl(IUserOutputRepositoryPort userOutputRepositoryPort) {
         this.userOutputRepositoryPort = userOutputRepositoryPort;
     }
 

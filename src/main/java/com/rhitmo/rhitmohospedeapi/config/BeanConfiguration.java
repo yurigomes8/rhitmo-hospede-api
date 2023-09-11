@@ -6,9 +6,9 @@ import com.rhitmo.rhitmohospedeapi.core.ports.input.IUserInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IBookingOutputRepositoryPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IRoomOutputRepositoryPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IUserOutputRepositoryPort;
-import com.rhitmo.rhitmohospedeapi.core.usecase.BookingUseCase;
-import com.rhitmo.rhitmohospedeapi.core.usecase.RoomUseCase;
-import com.rhitmo.rhitmohospedeapi.core.usecase.UserUseCase;
+import com.rhitmo.rhitmohospedeapi.core.service.BookingServiceImpl;
+import com.rhitmo.rhitmohospedeapi.core.service.RoomServiceImpl;
+import com.rhitmo.rhitmohospedeapi.core.service.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,18 +16,18 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    IBookingInputPort bookingUseCase(IBookingOutputRepositoryPort bookingOutputRepositoryPort){
-        return new BookingUseCase(bookingOutputRepositoryPort);
+    IBookingInputPort bookingUseCase(IBookingOutputRepositoryPort bookingOutputRepositoryPort, IUserOutputRepositoryPort userOutputRepositoryPort, IRoomOutputRepositoryPort roomOutputRepositoryPort){
+        return new BookingServiceImpl(bookingOutputRepositoryPort, userOutputRepositoryPort, roomOutputRepositoryPort);
     }
 
     @Bean
     IUserInputPort userUseCase(IUserOutputRepositoryPort userOutputRepositoryPort){
-        return new UserUseCase(userOutputRepositoryPort);
+        return new UserServiceImpl(userOutputRepositoryPort);
     }
 
     @Bean
     IRoomInputPort roomUseCase(IRoomOutputRepositoryPort roomOutputRepositoryPort){
-        return new RoomUseCase(roomOutputRepositoryPort);
+        return new RoomServiceImpl(roomOutputRepositoryPort);
     }
 
 }

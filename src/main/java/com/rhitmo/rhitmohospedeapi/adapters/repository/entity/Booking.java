@@ -34,4 +34,10 @@ public class Booking {
     @Column(name = "status", nullable = false)
     private Short status;
 
+    @Column(name = "room_id", nullable = false)
+    private Integer roomId;
+
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
+
 }

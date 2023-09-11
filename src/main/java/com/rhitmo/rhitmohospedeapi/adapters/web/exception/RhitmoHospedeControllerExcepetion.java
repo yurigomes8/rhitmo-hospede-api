@@ -1,13 +1,9 @@
 package com.rhitmo.rhitmohospedeapi.adapters.web.exception;
 
-import com.rhitmo.rhitmohospedeapi.model.Error;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class RhitmoHospedeControllerExcpetion {
+public class RhitmoHospedeControllerExcepetion {
 
 //    @ExceptionHandler(DataIntegrityViolationException.class)
 //    public ResponseEntity<Error> dataIntegrityException(DataIntegrityViolationException exception) {

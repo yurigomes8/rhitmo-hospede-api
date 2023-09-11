@@ -1,16 +1,16 @@
-package com.rhitmo.rhitmohospedeapi.core.usecase;
+package com.rhitmo.rhitmohospedeapi.core.service;
 
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IRoomInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IRoomOutputRepositoryPort;
 import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpRequest;
 import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpResponse;
 
-public class RoomUseCase implements IRoomInputPort{
+public class RoomServiceImpl implements IRoomInputPort{
 
     private final IRoomOutputRepositoryPort roomOutputRepositoryPort;
 
 
-    public RoomUseCase(IRoomOutputRepositoryPort roomOutputRepositoryPort) {
+    public RoomServiceImpl(IRoomOutputRepositoryPort roomOutputRepositoryPort) {
         this.roomOutputRepositoryPort = roomOutputRepositoryPort;
     }
 

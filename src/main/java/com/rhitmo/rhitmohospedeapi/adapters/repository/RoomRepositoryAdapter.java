@@ -43,7 +43,7 @@ public class RoomRepositoryAdapter implements IRoomOutputRepositoryPort {
         if(roomRepository.findById(id).isPresent()) {
             return roomRepository.findById(id).get();
         } else {
-            throw new RuntimeException("Room not found");
+            throw new RuntimeException("RoomDomainModel not found");
         }
     }
 }

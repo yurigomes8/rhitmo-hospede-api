@@ -2,6 +2,7 @@ package com.rhitmo.rhitmohospedeapi.adapters.repository;
 
 import com.rhitmo.rhitmohospedeapi.adapters.repository.jpa.BookingRepository;
 import com.rhitmo.rhitmohospedeapi.adapters.repository.mapper.BookingMapper;
+import com.rhitmo.rhitmohospedeapi.core.domain.models.BookingDomainModel;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IBookingOutputRepositoryPort;
 import com.rhitmo.rhitmohospedeapi.model.CreateBookingPostHttpRequest;
 import com.rhitmo.rhitmohospedeapi.model.CreateBookingPostHttpResponse;
@@ -26,9 +27,9 @@ public class BookingRepositoryAdapter implements IBookingOutputRepositoryPort {
     }
 
     @Override
-    public CreateBookingPostHttpResponse createBooking(CreateBookingPostHttpRequest request) {
+    public CreateBookingPostHttpResponse createBooking(BookingDomainModel booking) {
         try{
-            var bookingSaved = bookingRepository.save(bookingMapper.toEntity(request));
+            var bookingSaved = bookingRepository.save(bookingMapper.toEntity(booking));
             return new CreateBookingPostHttpResponse()
                     .id(bookingSaved.getId())
                     .dataCriacao(OffsetDateTime.now().toString());
