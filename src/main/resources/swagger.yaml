@@ -1,0 +1,514 @@
+openapi: "3.0.3"
+info:
+  title: rhitmo-hospede-api
+  description: Api que realiza a criação de usuario, quarto e reserva.
+  contact:
+    name: Yuri Gomes
+    email: yurigomes8@hotmail.com
+  version: v1.0.0
+externalDocs:
+  description: Saiba mais sobre a aplicação em nossa documentação
+  url: https://miro.com/app/board/uXjVMpdC5ak=/?share_link_id=41848623701
+tags:
+  - name: User
+    description: all endpoints related to users
+  - name: Room
+    description: all endpoints related to rooms
+  - name: Booking
+    description: all endpoints related to bookings
+paths:
+  /rhitmo-hospede/v1/users:
+    post:
+      tags:
+        - User
+      summary: Cria um novo usuario
+      description: Cria um novo usuario
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserPostHttpRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserPostHttpResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rhitmo-hospede/v1/room:
+    post:
+      tags:
+        - Room
+      summary: Create a new room
+      description: Create a new room
+      operationId: createRoom
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoomPostHttpRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRoomPostHttpResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rhitmo-hospede/v1/room/{roomId}/booking:
+    get:
+      tags:
+        - Room
+      summary: obtains all reservations made for the specified room
+      description: obtains all reservations made for the specified room
+      operationId: getRoomBookings
+      parameters:
+        - name: roomId
+          in: path
+          description: room id
+          required: true
+          schema:
+            type: integer
+            format: integer
+            example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObtainRoomBookingsGetHttpResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rhitmo-hospede/v1/rooms:
+    get:
+      tags:
+        - Room
+      summary: get all available rooms for the selected date
+      description: get all available rooms for the selected date
+      operationId: getAllAvailableRooms
+      parameters:
+        - name: checkIn
+          in: query
+          description: check in date
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2021-08-31T14:00:00.000Z
+        - name: checkOut
+          in: query
+          description: check out date
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2021-08-31T14:00:00.000Z
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListAvailableRoomsGetHttpResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rhitmo-hospede/v1/booking:
+    post:
+      tags:
+        - Booking
+      summary: Create a new booking
+      description: Create a new booking
+      operationId: createBooking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookingPostHttpRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBookingPostHttpResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rhitmo-hospede/v1/booking/{bookingId}:
+    patch:
+      tags:
+        - Booking
+      summary: Update a booking
+      description: Update a booking
+      operationId: updateBooking
+      parameters:
+        - name: bookingId
+          in: path
+          description: booking id
+          required: true
+          schema:
+            type: integer
+            format: integer
+            example: 1
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rhitmo-hospede/v1/booking/{bookingId}/cancel:
+    patch:
+      tags:
+        - Booking
+      summary: Cancel a booking
+      description: Cancel a booking
+      operationId: cancelBooking
+      parameters:
+        - name: bookingId
+          in: path
+          description: booking id
+          required: true
+          schema:
+            type: integer
+            format: integer
+            example: 1
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '424':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    CreateUserPostHttpRequest:
+      type: object
+      required:
+        - "name"
+        - "email"
+        - "cpf"
+      properties:
+        name:
+          type: string
+          format: string
+          example: "Yuri Gomes"
+          description: Nome do usuario
+        email:
+          type: string
+          format: string
+          example: "yurigomes8@hotmail.com"
+          description: Email do usuario
+        cpf:
+          type: string
+          format: string
+          example: "12345678910"
+          description: CPF do usuario
+    CreateUserPostHttpResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: integer
+          example: 1
+          description: Id do usuario
+        dataCriacao:
+          type: string
+          format: date-time
+          example: 2021-08-31T14:00:00.000Z
+          description: Data de criação do usuario
+    CreateRoomPostHttpRequest:
+      type: object
+      required:
+        - "description"
+        - "dailyAmount"
+      properties:
+        description:
+          type: string
+          format: string
+          example: Quarto com vista oara p amor
+          description: Room description
+        dailyAmount:
+          type: number
+          format: double
+          example: 39.90
+          description: Room daily amount
+    CreateRoomPostHttpResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: integer
+          example: 1
+          description: Room id
+        dataCriacao:
+          type: string
+          format: date-time
+          example: 2021-08-31T14:00:00.000Z
+          description: Room creation date
+    CreateBookingPostHttpRequest:
+      type: object
+      required:
+        - "checkIn"
+        - "checkOut"
+        - "userId"
+        - "roomId"
+      properties:
+        checkIn:
+          type: string
+          format: date-time
+          example: 2021-08-31T14:00:00.000Z
+          description: Booking entry date
+        checkOut:
+          type: string
+          format: date-time
+          example: 2021-08-31T14:00:00.000Z
+          description: Booking exit date
+        userId:
+          type: integer
+          format: integer
+          example: 1
+          description: User id
+        roomId:
+          type: integer
+          format: integer
+          example: 1
+          description: Room id
+    ListAvailableRoomsGetHttpResponse:
+      type: object
+      properties:
+        rooms:
+          $ref: '#/components/schemas/Room'
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: integer
+          example: 1
+          description: Room id
+        description:
+          type: string
+          format: string
+          example: Quarto com vista para o mar
+          description: Room description
+        dailyAmount:
+          type: string
+          format: string
+          example: "39.90"
+          description: Room daily amount
+    ObtainRoomBookingsGetHttpResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: integer
+          example: 1
+          description: Room id
+        description:
+          type: string
+          format: string
+          example: Quarto com vista para o mar
+          description: Room description
+        dailyAmount:
+          type: string
+          format: string
+          example: "39.90"
+          description: Room daily amount
+        bookings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Booking'
+          description: List of bookings
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: integer
+          example: 1
+          description: Booking id
+        checkIn:
+          type: string
+          format: date-time
+          example: 2021-08-31T14:00:00.000Z
+          description: Booking entry date
+        checkOut:
+          type: string
+          format: date-time
+          example: 2021-08-31T14:00:00.000Z
+          description: Booking exit date
+        totalAmount:
+          type: string
+          format: string
+          example: "39.90"
+          description: Booking total amount
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - CANCELED
+            - COMPLETED
+          description: Booking status
+        userId:
+          type: integer
+          format: integer
+          example: 1
+          description: User id
+        roomId:
+          type: integer
+          format: integer
+          example: 1
+          description: Room id
+    CreateBookingPostHttpResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: integer
+          example: 1
+          description: Booking id
+        dataCriacao:
+          type: string
+          format: string
+          example: 2021-08-31T14:00:00.000Z
+          description: Booking creation date
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          format: string
+          example: 4xx or 5xx
+          description: Código do erro, igual ao status code da requisição
+        description:
+          type: string
+          format: string
+          example: BAD_REQUEST
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                format: string
+                example: RHCORBOOKINGSVC-001
+              message:
+                type: string
+                format: string
+                example: Campo X inválido
