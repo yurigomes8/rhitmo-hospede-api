@@ -3,18 +3,19 @@ package com.rhitmo.rhitmohospedeapi.core.domain.models;
 import com.rhitmo.rhitmohospedeapi.core.domain.enumeration.BookingStatus;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.Instant;
+
 
 public class BookingDomainModel {
-    private OffsetDateTime checkIn;
-    private OffsetDateTime checkOut;
+    private Instant checkIn;
+    private Instant checkOut;
     private BigDecimal totalAmount;
     private Integer roomId;
     private Integer userId;
     private BookingStatus status;
 
 
-    public BookingDomainModel(OffsetDateTime checkIn, OffsetDateTime checkOut, BigDecimal totalAmount, Integer roomId, Integer userId, BookingStatus status) {
+    public BookingDomainModel(Instant checkIn, Instant checkOut, BigDecimal totalAmount, Integer roomId, Integer userId, BookingStatus status) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.totalAmount = totalAmount;
@@ -27,19 +28,19 @@ public class BookingDomainModel {
 
     }
 
-    public OffsetDateTime getCheckIn() {
+    public Instant getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(OffsetDateTime checkIn) {
+    public void setCheckIn(Instant checkIn) {
         this.checkIn = checkIn;
     }
 
-    public OffsetDateTime getCheckOut() {
+    public Instant getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(OffsetDateTime checkOut) {
+    public void setCheckOut(Instant checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -67,8 +68,8 @@ public class BookingDomainModel {
         this.userId = userId;
     }
 
-    public BookingStatus getStatus() {
-        return status;
+    public Short getStatus() {
+        return status.getValorBookingStatus();
     }
 
     public void setStatus(BookingStatus status) {

@@ -1,12 +1,17 @@
 package com.rhitmo.rhitmohospedeapi.core.ports.output;
 
 import com.rhitmo.rhitmohospedeapi.adapters.repository.entity.Room;
-import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpRequest;
-import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpResponse;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateRoomPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.CreatePostHttpResponseDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.ListAvailableRoomsGetHttpResponseDto;
+
+import java.util.List;
 
 public interface IRoomOutputRepositoryPort {
 
-     CreateRoomPostHttpResponse createRoom(CreateRoomPostHttpRequest request);
+     CreatePostHttpResponseDto createRoom(CreateRoomPostHttpRequestDto request);
+
+     List<ListAvailableRoomsGetHttpResponseDto> getAllAvailableRooms();
 
      Room getRoomById(Integer id);
 

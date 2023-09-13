@@ -1,9 +1,10 @@
 package com.rhitmo.rhitmohospedeapi.core.service;
 
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateUserPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.CreatePostHttpResponseDto;
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IUserInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IUserOutputRepositoryPort;
-import com.rhitmo.rhitmohospedeapi.model.CreateUserPostHttpRequest;
-import com.rhitmo.rhitmohospedeapi.model.CreateUserPostHttpResponse;
+
 
 public class UserServiceImpl implements IUserInputPort {
 
@@ -14,7 +15,7 @@ public class UserServiceImpl implements IUserInputPort {
     }
 
     @Override
-    public CreateUserPostHttpResponse createUser(CreateUserPostHttpRequest request) {
+    public CreatePostHttpResponseDto createUser(CreateUserPostHttpRequestDto request) {
             return userOutputRepositoryPort.createUser(request);
     }
 }

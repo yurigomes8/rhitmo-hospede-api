@@ -12,7 +12,7 @@ externalDocs:
 tags:
   - name: User
     description: all endpoints related to users
-  - name: RoomDomainModel
+  - name: Room
     description: all endpoints related to rooms
   - name: Booking
     description: all endpoints related to bookings
@@ -25,6 +25,7 @@ paths:
       description: Cria um novo usuario
       operationId: createUser
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -41,27 +42,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
   /rhitmo-hospede/v1/room:
     post:
       tags:
-        - RoomDomainModel
+        - Room
       summary: Create a new room
       description: Create a new room
       operationId: createRoom
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -78,23 +80,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
   /rhitmo-hospede/v1/room/{roomId}/booking:
     get:
       tags:
-        - RoomDomainModel
+        - Room
       summary: obtains all reservations made for the specified room
       description: obtains all reservations made for the specified room
       operationId: getRoomBookings
@@ -119,23 +121,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
   /rhitmo-hospede/v1/rooms:
     get:
       tags:
-        - RoomDomainModel
+        - Room
       summary: get all available rooms for the selected date
       description: get all available rooms for the selected date
       operationId: getAllAvailableRooms
@@ -170,19 +172,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
   /rhitmo-hospede/v1/booking:
     post:
       tags:
@@ -191,6 +193,7 @@ paths:
       description: Create a new booking
       operationId: createBooking
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -207,19 +210,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
   /rhitmo-hospede/v1/booking/{bookingId}:
     patch:
       tags:
@@ -244,19 +247,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
   /rhitmo-hospede/v1/booking/{bookingId}/cancel:
     patch:
       tags:
@@ -281,19 +284,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '424':
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorHandler'
 components:
   schemas:
     CreateUserPostHttpRequest:
@@ -304,16 +307,19 @@ components:
         - "cpf"
       properties:
         name:
+          nullable: false
           type: string
           format: string
           example: "Yuri Gomes"
           description: Nome do usuario
         email:
+          nullable: false
           type: string
           format: string
           example: "yurigomes8@hotmail.com"
           description: Email do usuario
         cpf:
+          nullable: false
           type: string
           format: string
           example: "12345678910"
@@ -341,12 +347,12 @@ components:
           type: string
           format: string
           example: Quarto com vista oara p amor
-          description: RoomDomainModel description
+          description: Room description
         dailyAmount:
           type: number
           format: double
           example: 39.90
-          description: RoomDomainModel daily amount
+          description: Room daily amount
     CreateRoomPostHttpResponse:
       type: object
       properties:
@@ -354,12 +360,12 @@ components:
           type: integer
           format: integer
           example: 1
-          description: RoomDomainModel id
+          description: Room id
         dataCriacao:
           type: string
           format: date-time
           example: 2021-08-31T14:00:00.000Z
-          description: RoomDomainModel creation date
+          description: Room creation date
     CreateBookingPostHttpRequest:
       type: object
       required:
@@ -387,7 +393,7 @@ components:
           type: integer
           format: integer
           example: 1
-          description: RoomDomainModel id
+          description: Room id
     ListAvailableRoomsGetHttpResponse:
       type: object
       properties:
@@ -400,17 +406,17 @@ components:
           type: integer
           format: integer
           example: 1
-          description: RoomDomainModel id
+          description: Room id
         description:
           type: string
           format: string
           example: Quarto com vista para o mar
-          description: RoomDomainModel description
+          description: Room description
         dailyAmount:
-          type: string
-          format: string
-          example: "39.90"
-          description: RoomDomainModel daily amount
+          type: number
+          format: double
+          example: 39.90
+          description: Room daily amount
     ObtainRoomBookingsGetHttpResponse:
       type: object
       properties:
@@ -418,17 +424,17 @@ components:
           type: integer
           format: integer
           example: 1
-          description: RoomDomainModel id
+          description: Room id
         description:
           type: string
           format: string
           example: Quarto com vista para o mar
-          description: RoomDomainModel description
+          description: Room description
         dailyAmount:
-          type: string
-          format: string
-          example: "39.90"
-          description: RoomDomainModel daily amount
+          type: number
+          format: double
+          example: 39.90
+          description: Room daily amount
         bookings:
           type: array
           items:
@@ -453,9 +459,9 @@ components:
           example: 2021-08-31T14:00:00.000Z
           description: Booking exit date
         totalAmount:
-          type: string
-          format: string
-          example: "39.90"
+          type: number
+          format: double
+          example: 39.90
           description: Booking total amount
         status:
           type: string
@@ -473,7 +479,7 @@ components:
           type: integer
           format: integer
           example: 1
-          description: RoomDomainModel id
+          description: Room id
     CreateBookingPostHttpResponse:
       type: object
       properties:
@@ -487,7 +493,20 @@ components:
           format: string
           example: 2021-08-31T14:00:00.000Z
           description: Booking creation date
-    Error:
+    ValidationErrorResponse:
+      type: object
+      properties:
+        field:
+          type: string
+          format: string
+          example: name
+          description: field name
+        errorMessage:
+          type: string
+          format: string
+          example: name
+          description: field name
+    ErrorHandler:
       type: object
       properties:
         code:
@@ -502,13 +521,4 @@ components:
         errors:
           type: array
           items:
-            type: object
-            properties:
-              code:
-                type: string
-                format: string
-                example: RHCORBOOKINGSVC-001
-              message:
-                type: string
-                format: string
-                example: Campo X inválido
+            $ref: '#/components/schemas/ValidationErrorResponse'

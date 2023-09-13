@@ -1,21 +1,28 @@
 package com.rhitmo.rhitmohospedeapi.adapters.web.rest.v1;
 
-import com.rhitmo.rhitmohospedeapi.api.RhitmoHospedeApi;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateBookingPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateRoomPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateUserPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.CreatePostHttpResponseDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.ListAvailableRoomsGetHttpResponseDto;
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IBookingInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IRoomInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IUserInputPort;
-import com.rhitmo.rhitmohospedeapi.model.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
-public class RhitmoHospedeController implements RhitmoHospedeApi {
+@RestController
+public class RhitmoHospedeController{
 
     private final IBookingInputPort bookingInputPort;
 
@@ -30,46 +37,54 @@ public class RhitmoHospedeController implements RhitmoHospedeApi {
         this.roomInputPort = roomInputPort;
     }
 
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return RhitmoHospedeApi.super.getRequest();
-    }
-
-    @Override
-    public ResponseEntity<Void> cancelBooking(Integer bookingId) {
-        return RhitmoHospedeApi.super.cancelBooking(bookingId);
-    }
-
-    @Override
-    public ResponseEntity<CreateBookingPostHttpResponse> createBooking(CreateBookingPostHttpRequest createBookingPostHttpRequest) {
-        var response = bookingInputPort.createBooking(createBookingPostHttpRequest);
+    @PostMapping(path = "/rhitmo-hospede/v1/user")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<CreatePostHttpResponseDto> createUser(@Valid @RequestBody CreateUserPostHttpRequestDto request) {
+        var response = userInputPort.createUser(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<CreateRoomPostHttpResponse> createRoom(CreateRoomPostHttpRequest createRoomPostHttpRequest) {
-        var response = roomInputPort.createRoom(createRoomPostHttpRequest);
+    @PostMapping(path = "/rhitmo-hospede/v1/room")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<CreatePostHttpResponseDto> createRoom(@Valid @RequestBody CreateRoomPostHttpRequestDto request) {
+        var response = roomInputPort.createRoom(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<CreateUserPostHttpResponse> createUser(CreateUserPostHttpRequest createUserPostHttpRequest) {
-       var response = userInputPort.createUser(createUserPostHttpRequest);
-       return new ResponseEntity<>(response, HttpStatus.OK);
+    @PostMapping(path = "/rhitmo-hospede/v1/booking")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<CreatePostHttpResponseDto> createBooking(@Valid @RequestBody CreateBookingPostHttpRequestDto request) {
+        var response = bookingInputPort.createBooking(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+//
+//    @GetMapping(path = "/rhitmo-hospede/v1/room/{roomId}/bookings")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<ObtainRoomBookingsGetHttpResponseDto> getRoomBookings(@PathVariable @NotNull Integer roomId) {
+//        var response = bookingInputPort.getRoomBookings(roomId);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
+//
+    @GetMapping(path = "/rhitmo-hospede/v1/rooms")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ListAvailableRoomsGetHttpResponseDto>> getAllAvailableRooms() {
+        var response = roomInputPort.getAllAvailableRooms();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+//
+//    @PatchMapping(path = "/rhitmo-hospede/v1/booking/{bookingId}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public ResponseEntity<Void> updateBooking(@PathVariable @NotNull Integer bookingId) {
+//        bookingInputPort.updateBooking(bookingId);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+//
+//    @PatchMapping(path = "/rhitmo-hospede/v1/booking/{bookingId}/cancel")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public ResponseEntity<Void> cancelBooking(@PathVariable @NotNull Integer bookingId) {
+//        bookingInputPort.cancelBooking(bookingId);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
-    @Override
-    public ResponseEntity<List<ListAvailableRoomsGetHttpResponse>> getAllAvailableRooms(OffsetDateTime checkIn, OffsetDateTime checkOut) {
-        return RhitmoHospedeApi.super.getAllAvailableRooms(checkIn, checkOut);
-    }
 
-    @Override
-    public ResponseEntity<ObtainRoomBookingsGetHttpResponse> getRoomBookings(Integer roomId) {
-        return RhitmoHospedeApi.super.getRoomBookings(roomId);
-    }
-
-    @Override
-    public ResponseEntity<Void> updateBooking(Integer bookingId) {
-        return RhitmoHospedeApi.super.updateBooking(bookingId);
-    }
 }

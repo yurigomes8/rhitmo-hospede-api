@@ -1,9 +1,13 @@
 package com.rhitmo.rhitmohospedeapi.core.service;
 
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateRoomPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.CreatePostHttpResponseDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.ListAvailableRoomsGetHttpResponseDto;
 import com.rhitmo.rhitmohospedeapi.core.ports.input.IRoomInputPort;
 import com.rhitmo.rhitmohospedeapi.core.ports.output.IRoomOutputRepositoryPort;
-import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpRequest;
-import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpResponse;
+
+import java.util.List;
+
 
 public class RoomServiceImpl implements IRoomInputPort{
 
@@ -15,7 +19,12 @@ public class RoomServiceImpl implements IRoomInputPort{
     }
 
     @Override
-    public CreateRoomPostHttpResponse createRoom(CreateRoomPostHttpRequest request) {
+    public CreatePostHttpResponseDto createRoom(CreateRoomPostHttpRequestDto request) {
         return roomOutputRepositoryPort.createRoom(request);
+    }
+
+    @Override
+    public List<ListAvailableRoomsGetHttpResponseDto> getAllAvailableRooms() {
+        return roomOutputRepositoryPort.getAllAvailableRooms();
     }
 }

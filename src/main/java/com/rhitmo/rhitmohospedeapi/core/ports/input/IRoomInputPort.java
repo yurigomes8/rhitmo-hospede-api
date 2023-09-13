@@ -1,12 +1,16 @@
 package com.rhitmo.rhitmohospedeapi.core.ports.input;
 
-import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpRequest;
-import com.rhitmo.rhitmohospedeapi.model.CreateRoomPostHttpResponse;
-import org.springframework.stereotype.Component;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.request.CreateRoomPostHttpRequestDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.CreatePostHttpResponseDto;
+import com.rhitmo.rhitmohospedeapi.adapters.web.dto.response.ListAvailableRoomsGetHttpResponseDto;
+
+import java.util.List;
 
 
 public interface IRoomInputPort {
 
-    public CreateRoomPostHttpResponse createRoom(CreateRoomPostHttpRequest request);
+    public CreatePostHttpResponseDto createRoom(CreateRoomPostHttpRequestDto request);
+
+    List<ListAvailableRoomsGetHttpResponseDto> getAllAvailableRooms();
 
 }
